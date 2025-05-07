@@ -32,9 +32,13 @@ struct DestinationListingView: View {
         }
     }
     
-    init(sort: SortDescriptor<Destination>) {
+    init(sort: SortDescriptor<Destination>, search searchString: String) {
         _destinations = Query(filter: #Predicate {
-            $0.priority >= 2
+            if searchString.isEmpty {
+                return true
+            } else {
+                return $0.name.localizedStandardContains(searchString)
+            }
         }, sort: [sort])
     }
     
@@ -46,6 +50,7 @@ struct DestinationListingView: View {
     }
 }
 
-#Preview {
-    DestinationListingView(sort: SortDescriptor(\Destination.name))
-}
+//#Preview {
+//    DestinationListingView(sort: SortDescriptor(\Destination.name))
+//}
+
