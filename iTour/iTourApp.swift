@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct iTourApp: App {
@@ -13,5 +14,11 @@ struct iTourApp: App {
         WindowGroup {
             ContentView()
         }
+        // tells swift data we want to create the storage for this object
+        // or load it if it was created previously.
+        // then use it inside the whole WindowGroup
+        
+        // equivalent: NSPersistentContainer + NSPersistentCloudContainer
+        .modelContainer(for: Destination.self)
     }
 }
